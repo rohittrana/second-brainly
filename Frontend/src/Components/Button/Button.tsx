@@ -6,6 +6,8 @@ interface ButtonProps{
        startIcon?:ReactElement;
        onClick?: () => void;
        className?:string;
+       loading?:boolean;
+
 }
 const variantStyles={
        "primary":"bg-purple-600 text-white",
@@ -21,7 +23,7 @@ const sizeStyle={
 export const Button=(props:ButtonProps)=>{
        return(
               <>
-                <button  onClick={props.onClick} className={`  ${variantStyles[props.variant]} ${sizeStyle[props.size]} ${props.className} flex item-center`}> {props.startIcon ?<div className='pr-3 mt-1'>{props.startIcon}</div>:null} {props.text} </button>
+                <button  onClick={props.onClick} className={`  ${variantStyles[props.variant]} ${sizeStyle[props.size]} ${props.className} ${props.loading?"disabled":""}flex item-center`}> {props.startIcon ?<div className='pr-3 mt-1'>{props.startIcon}</div>:null} {props.text} </button>
               </>
        )
 }

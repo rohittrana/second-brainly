@@ -1,6 +1,11 @@
+type CreateContentProps = {
+  open: boolean;
+  onClose: () => void;
+};
+import { Input } from "../Input/Input";
 import { CrossIcon } from "./icons/CrossIcon";
 import  {Button }from './Button/Button'
-export function CreateContent({ open, onClose }) {
+export function CreateContent({ open, onClose }:CreateContentProps) {
   return (
     <div >
       {open && (
@@ -13,9 +18,9 @@ export function CreateContent({ open, onClose }) {
                 
               </div>
               <div className="">
-                <Input placeholder="title"></Input>
+                <Input placeholder="Title"></Input>
                 <br />
-                <Input placeholder="description"></Input>
+                <Input placeholder="Description"></Input>
                
               </div>
           <div className="flex justify-center ">
@@ -30,15 +35,3 @@ export function CreateContent({ open, onClose }) {
   );
 }
 
-function Input({ onChange, placeholder }: { onChange: () => void }) {
-  return (
-    <>
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="px-4 py-2 rounded border m-2"
-        onChange={onChange}
-      />
-    </>
-  );
-}
