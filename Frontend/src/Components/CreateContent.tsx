@@ -4,8 +4,23 @@ type CreateContentProps = {
 };
 import { Input } from "../Input/Input";
 import { CrossIcon } from "./icons/CrossIcon";
+import {useRef} from 'react';
 import  {Button }from './Button/Button'
+import { BACKEND_URL } from "../config";
+import axios  from 'axios';
 export function CreateContent({ open, onClose }:CreateContentProps) {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
+  async  function addContent(){
+    const  title = titleRef.current?.value;     
+    const  description = descriptionRef.current?.value;     
+         axios.post(BACKEND_URL+ ('api/v1/content'),{
+          title,
+          description,
+        })
+          
+      
+  }
   return (
     <div >
       {open && (
@@ -18,13 +33,13 @@ export function CreateContent({ open, onClose }:CreateContentProps) {
                 
               </div>
               <div className="">
-                <Input placeholder="Title"></Input>
+                <Input ref={titleRef} placeholder="Title"></Input>
                 <br />
-                <Input placeholder="Description"></Input>
+                <Input ref={descriptionRef} placeholder="Description"></Input>
                
               </div>
           <div className="flex justify-center ">
-            <Button variant="primary" text="submit" size="md" className= "hover:bg-purple-500 "></Button>
+            <Button onClick={addContent} variant="primary" text="submit" size="md" className= "hover:bg-purple-500 "></Button>
           </div>
        
             </span>
