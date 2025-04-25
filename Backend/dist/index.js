@@ -77,7 +77,6 @@ app.post("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter
     });
 }));
 app.get("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // @ts-ignore
     const userId = req.userId;
     const content = yield db_1.ContentModel.find({
         userId: userId

@@ -4,21 +4,36 @@ type CreateContentProps = {
 };
 import { Input } from "../Input/Input";
 import { CrossIcon } from "./icons/CrossIcon";
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import  {Button }from './Button/Button'
 import { BACKEND_URL } from "../config";
 import axios  from 'axios';
+
+enum contentType{
+    Youtube="youtube",
+     X ="x"
+}
 export function CreateContent({ open, onClose }:CreateContentProps) {
   const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
+  const [type ,setType] =useState(contentType.Youtube);
+
   async  function addContent(){
     const  title = titleRef.current?.value;     
-    const  description = descriptionRef.current?.value;     
+    const  link = linkRef.current?.value;     
          axios.post(BACKEND_URL+ ('api/v1/content'),{
           title,
-          description,
+          link,
+          type,
+
+        },{
+          headers:{
+            "Authorization":localStorage.getItem('token')
+          }
+       
         })
-          
+        onClose();
+    
       
   }
   return (
@@ -35,8 +50,17 @@ export function CreateContent({ open, onClose }:CreateContentProps) {
               <div className="">
                 <Input ref={titleRef} placeholder="Title"></Input>
                 <br />
-                <Input ref={descriptionRef} placeholder="Description"></Input>
+                <Input ref={linkRef} placeholder="Description"></Input>
                
+              </div>
+              <h1 className="flex  justify-center">Type</h1>
+              <div className="flex justify-around p-3">
+                <Button text="Youtube" variant={type === contentType.Youtube?'primary':'secondary'} size="md" onClick={()=>{
+                  setType(contentType.Youtube);
+                }}></Button>
+                <Button text="X" variant={type === contentType.X ?'secondary':'primary'} size="md"  onClick={()=>{
+                  setType(contentType.X);
+                }}></Button>
               </div>
           <div className="flex justify-center ">
             <Button onClick={addContent} variant="primary" text="submit" size="md" className= "hover:bg-purple-500 "></Button>
