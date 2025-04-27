@@ -7,5 +7,6 @@ export const sizebtn = {
              
              export interface BtnSize {
                btnSize: "sm" | "md" | "lg";
+               onclick?:()=>void;
              }
              

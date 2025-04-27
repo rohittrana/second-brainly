@@ -6,12 +6,14 @@ import { ShareIcon } from "../Components/icons/ShareIcon";
 import { PlusIcon } from "../Components/icons/PlusIcon";
 import { Card } from "../Components/Card/Card";
 import { UseContent } from "../Components/Hooks/UseContent";
+import { BACKEND_URL } from "../config";
+import axios from "axios";
 export function DashBoard() {
   const [modelOpen, setModelOpen] = useState(false);
-  const {contents,refresh} = UseContent();
-  useEffect(()=>{
-     refresh();
-  },[modelOpen])
+  const { contents, refresh } = UseContent();
+  useEffect(() => {
+    refresh();
+  }, [modelOpen]);
   return (
     <>
       <Sidebar></Sidebar>
@@ -23,13 +25,31 @@ export function DashBoard() {
           }}
         ></CreateContent>
 
-        <div className="flex justify-end mr-20  gap-4 ">
+        <div className="flex justify-end mr-10 mb-2 gap-4 ">
           <Button
             variant="secondary"
             size="md"
             startIcon={<ShareIcon btnSize="md" />}
             text="Share Brain"
-          ></Button>
+            onClick={async () => {
+              const response = await axios.post(
+                `${BACKEND_URL}api/v1/brain/share`,
+                {
+                  share: true,
+                  
+                },
+                {
+                  headers:{
+                    "Authorization":localStorage.getItem('token')
+                  }
+                }
+              );
+              const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
+              await navigator.clipboard.writeText(shareUrl);
+              alert("Link copied to clipboard! 🚀"); 
+            }}
+          />
+
           <Button
             onClick={() => {
               setModelOpen(true);
@@ -41,10 +61,9 @@ export function DashBoard() {
           ></Button>
         </div>
 
-        <div className="flex gap-2 flex-wrap" >
-     
-          {contents.map(({type,link,title}) => (
-            <Card  type={type} link={link} title={title} />
+        <div className="flex gap-2 flex-wrap">
+          {contents.map(({ type, link, title }) => (
+            <Card type={type} link={link} title={title} />
           ))}
         </div>
       </div>
