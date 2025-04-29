@@ -1,6 +1,7 @@
 import { DeleteIcon } from "../icons/DeleteIcon";
-import { DocumentIcon } from "../icons/DocumentIcon";
 import { ShareIcon } from "../icons/ShareIcon";
+import { TwitterIcon } from "../icons/TwitterIcon";
+import { YoutubeIcon } from "../icons/YoutubeIcon";
 
 interface CardProps {
   title: string;
@@ -13,19 +14,19 @@ export const Card = ({ title, link, type }: CardProps) => {
     <div className="bg-white rounded-md max-w-96 outline-gray-200 border p-8 min-h-48 min-w-72">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2 text-sm">
-          <DocumentIcon />
+          {type === "youtube" && <YoutubeIcon></YoutubeIcon>}
+          {type == "twitter" && <TwitterIcon />}
           {title}
         </div>
 
         <div className="flex items-center gap-2">
-          <ShareIcon btnSize="lg"  />
+          <ShareIcon btnSize="lg" />
           <a href={link} target="_blank" />
           <DeleteIcon />
         </div>
       </div>
 
       <div className="pt-4">
-        {/* Render YouTube embed if type is "youtube" */}
         {type === "youtube" && (
           <iframe
             className="w-full"
@@ -38,7 +39,6 @@ export const Card = ({ title, link, type }: CardProps) => {
           ></iframe>
         )}
 
-        {/* Render Twitter embed if type is "twitter" */}
         {type === "twitter" && (
           <blockquote className="twitter-tweet">
             <a href={link.replace("x.com", "twitter.com")}></a>

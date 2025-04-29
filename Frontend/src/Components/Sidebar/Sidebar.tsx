@@ -2,7 +2,9 @@ import { TwitterIcon } from "../icons/TwitterIcon";
 import { SidebarItem } from "./SidebarItem";
 import {YoutubeIcon} from '../icons/YoutubeIcon'
 import { BrainIcon } from "../icons/BrainIcon";
+
 export function Sidebar() {
+    
   return (
     <>
       <div className="h-screen bg-white  border-r w-72 fixed  left-0 top-0    pl-6">
@@ -14,7 +16,7 @@ export function Sidebar() {
         
         </div>
         <div className="pt-16 gap-6 ">
-            <SidebarItem text= "X" icon={<TwitterIcon/>} ></SidebarItem>
+            <SidebarItem text= "Twitter" icon={<TwitterIcon/>}></SidebarItem>
             <SidebarItem text= "Youtube" icon={<YoutubeIcon/>} ></SidebarItem>
         </div>
       </div>

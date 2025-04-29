@@ -46,7 +46,7 @@ export function DashBoard() {
               );
               const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
               await navigator.clipboard.writeText(shareUrl);
-              alert("Link copied to clipboard! 🚀"); 
+              alert("Link copied to clipboard! "); 
             }}
           />
 

@@ -2,9 +2,12 @@ import { ReactElement } from "react";
 export function SidebarItem({
   text,
   icon,
+  
+  
 }: {
   text: string;
   icon: ReactElement;
+  onClick?:()=>void;
 }) {
   return (
     <div className="flex text-gray-700 items-center  hover:bg-slate-300 cursor-pointer rounded max-w-48 pl-4 transition-all  ">

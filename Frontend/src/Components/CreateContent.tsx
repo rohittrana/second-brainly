@@ -11,7 +11,7 @@ import axios  from 'axios';
 
 enum contentType{
     Youtube="youtube",
-     X ="x"
+     Twitter ="twitter"
 }
 export function CreateContent({ open, onClose }:CreateContentProps) {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -58,8 +58,8 @@ export function CreateContent({ open, onClose }:CreateContentProps) {
                 <Button text="Youtube" variant={type === contentType.Youtube?'primary':'secondary'} size="md" onClick={()=>{
                   setType(contentType.Youtube);
                 }}></Button>
-                <Button text="X" variant={type === contentType.X ?'secondary':'primary'} size="md"  onClick={()=>{
-                  setType(contentType.X);
+                <Button text="Twitter" variant={type === contentType.Twitter?'secondary':'primary'} size="md"  onClick={()=>{
+                  setType(contentType.Twitter);
                 }}></Button>
               </div>
           <div className="flex justify-center ">
