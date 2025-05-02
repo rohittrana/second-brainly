@@ -25,6 +25,7 @@ export function CreateContent({ open, onClose }:CreateContentProps) {
           title,
           link,
           type,
+          
 
         },{
           headers:{

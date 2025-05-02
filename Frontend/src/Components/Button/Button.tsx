@@ -1,4 +1,5 @@
 import{ReactElement} from  'react';
+
 interface ButtonProps{
        variant:"primary"|"secondary";
        size:"sm"|"md"|"lg";
@@ -7,6 +8,8 @@ interface ButtonProps{
        onClick?: () => void;
        className?:string;
        loading?:boolean;
+       navigation?: string; 
+       
 
 }
 const variantStyles={
@@ -21,9 +24,19 @@ const sizeStyle={
 }
 
 export const Button=(props:ButtonProps)=>{
+       const handleClick = () => {
+             
+              if (props.onClick) {
+                props.onClick();
+              }
+             
+              if (props.navigation) {
+                window.location.href = props.navigation;
+              }
+       }
        return(
               <>
-                <button  onClick={props.onClick} className={`  ${variantStyles[props.variant]} ${sizeStyle[props.size]} ${props.className} ${props.loading?"disabled":""}flex item-center`}> {props.startIcon ?<div className='pr-3 mt-1'>{props.startIcon}</div>:null} {props.text} </button>
+                <button onClick={handleClick}  className={`  ${variantStyles[props.variant]}  ${sizeStyle[props.size]} ${props.className} ${props.loading?"disabled":""}flex item-center`}> {props.startIcon ?<div className='pr-3 mt-1'>{props.startIcon}</div>:null} {props.text} {props.navigation} </button>
               </>
        )
 }

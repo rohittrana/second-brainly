@@ -8,15 +8,25 @@ import { Card } from "../Components/Card/Card";
 import { UseContent } from "../Components/Hooks/UseContent";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
+
 export function DashBoard() {
   const [modelOpen, setModelOpen] = useState(false);
   const { contents, refresh } = UseContent();
+  const [filter, setFilter] = useState("all");
+  
+  // Apply filter to contents
+  const filteredContent = contents.filter((item) => {
+    if (filter === "all") return true;
+    return item.type === filter;
+  });
+      
   useEffect(() => {
     refresh();
   }, [modelOpen]);
+  
   return (
     <>
-      <Sidebar></Sidebar>
+      <Sidebar onFilterSelect={setFilter} />
       <div className="p-4 ml-72 min-h-screen bg-gray-100">
         <CreateContent
           open={modelOpen}
@@ -24,7 +34,7 @@ export function DashBoard() {
             setModelOpen(false);
           }}
         ></CreateContent>
-
+        
         <div className="flex justify-end mr-10 mb-2 gap-4 ">
           <Button
             variant="secondary"
@@ -36,7 +46,7 @@ export function DashBoard() {
                 `${BACKEND_URL}api/v1/brain/share`,
                 {
                   share: true,
-                  
+                                 
                 },
                 {
                   headers:{
@@ -46,10 +56,10 @@ export function DashBoard() {
               );
               const shareUrl = `http://localhost:5173/share/${response.data.hash}`;
               await navigator.clipboard.writeText(shareUrl);
-              alert("Link copied to clipboard! "); 
-            }}
+              alert("Link copied to clipboard! ");
+             }}
           />
-
+          
           <Button
             onClick={() => {
               setModelOpen(true);
@@ -60,12 +70,13 @@ export function DashBoard() {
             text="Add Content"
           ></Button>
         </div>
-
+        
         <div className="flex gap-2 flex-wrap">
-          {contents.map(({ type, link, title }) => (
-            <Card type={type} link={link} title={title} />
+          {filteredContent.map((item) => (
+            <Card key={item._id} type={item.type} link={item.link} title={item.title} />
           ))}
         </div>
+              
       </div>
     </>
   );

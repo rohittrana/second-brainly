@@ -7,9 +7,13 @@ interface CardProps {
   title: string;
   link: string;
   type: "youtube" | "twitter";
+  onShare?: () => void;
+  onDelete?: () => void;
 }
 
+
 export const Card = ({ title, link, type }: CardProps) => {
+  
   return (
     <div className="bg-white rounded-md max-w-96 outline-gray-200 border p-8 min-h-48 min-w-72">
       <div className="flex justify-between items-center">
