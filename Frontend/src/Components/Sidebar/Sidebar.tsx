@@ -3,7 +3,7 @@ import { SidebarItem } from "./SidebarItem";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
 import { useState } from "react";
-
+import { Button } from "../Button/Button";
 interface SidebarProps {
   onFilterSelect: (filter: "all" | "twitter" | "youtube") => void;
 }
@@ -42,6 +42,9 @@ export function Sidebar({ onFilterSelect }: SidebarProps) {
           isActive={activeFilter === "youtube"}
           onClick={() => handleFilterClick("youtube")} 
         />
+      </div>
+      <div className="mb-0">
+        <Button variant="secondary" size="md" text="logout"></Button>
       </div>
     </div>
   );

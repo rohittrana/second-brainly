@@ -11,8 +11,6 @@ interface ContentItem {
   title: string;
 }
 
-
-
 export function ShareLink() {
   const { shareLink } = useParams<{ shareLink: string }>();
   const [username, setUsername] = useState("");
@@ -36,21 +34,32 @@ export function ShareLink() {
     if (shareLink) fetchContent();
   }, [shareLink]);
 
-  if (loading) return <div className="p-4 text-lg">Loading...</div>;
+  if (loading) return <div className="p-4 text-lg text-white">Loading...</div>;
   if (error) return <div className="p-4 text-red-500">Error: {error}</div>;
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Shared by: {username}</h2>
-      <div className="flex gap-4 flex-wrap">
-        {content.map((item) => (
-          <Card
-            key={item._id}
-            title={item.title}
-            link={item.link}
-            type={item.type}
-          />
-        ))}
+    <div className="relative min-h-screen w-full">
+  
+      <div className="fixed top-0 left-0 right-0 bottom-0 -z-20 bg-gray-900"></div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 -z-10 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      
+      
+      <div className="relative h-full w-full bg-slate-800"><div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+      </div>
+      
+    
+      <div className="relative z-10 p-6">
+       <div className="bg-white rounded-md flex justify-center w-80 h-12 m-3 "><h1 className="text-black"> Share by:{username}</h1></div>
+        <div className="flex gap-4 flex-wrap ">
+          {content.map((item) => (
+            <Card
+              key={item._id}
+              title={item.title}
+              link={item.link}
+              type={item.type}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
