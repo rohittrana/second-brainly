@@ -17,7 +17,7 @@ export function Home() {
   
   return (
     <>
-      <div className="fixed top-0 left-0 -z-10 min-h-screen w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] bg-repeat"></div>
+      <div className="relative h-full w-full bg-white"><div className="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
       
       <nav className="flex justify-between p-3 bg-[#000921] bg-opacity-95 border-b border-[#ffffff20] sticky top-0 z-10 shadow-md backdrop-filter backdrop-blur-sm">
         <div className="flex items-center justify-normal text-white">
@@ -56,6 +56,8 @@ export function Home() {
       <Feature id="Feature" />
       <Working id="Working" />
       <Testimonials id="Testimonials" />
+      </div>
     </>
+    
   );
 }

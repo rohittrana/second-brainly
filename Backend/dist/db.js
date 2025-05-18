@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ContentModel = exports.LinkModel = exports.UserModel = void 0;
+exports.ContentModel = exports.LinkModel = exports.TokenBlacklistModel = exports.UserModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 mongoose_1.default.connect("mongodb://localhost:27017/Brainly");
 const UserSchema = new mongoose_1.Schema({
@@ -52,5 +52,19 @@ const LinkSchema = new mongoose_1.Schema({
     hash: String,
     userId: { type: mongoose_1.default.Types.ObjectId, ref: 'User', required: true, unique: true },
 });
+const tokenBlacklistSchema = new mongoose_1.default.Schema({
+    token: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    expiresAt: {
+        type: Date,
+        required: true,
+        // Index will automatically delete expired tokens
+        expires: 0
+    }
+});
+exports.TokenBlacklistModel = mongoose_1.default.model("TokenBlacklist", tokenBlacklistSchema);
 exports.LinkModel = (0, mongoose_1.model)("Links", LinkSchema);
 exports.ContentModel = (0, mongoose_1.model)("Content", ContentSchema);
