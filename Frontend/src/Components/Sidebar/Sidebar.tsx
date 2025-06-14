@@ -1,4 +1,3 @@
-import { BrainIcon } from "../icons/BrainIcon";
 import { SidebarItem } from "./SidebarItem";
 import { TwitterIcon } from "../icons/TwitterIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
@@ -6,7 +5,7 @@ import { useState } from "react";
 import { Button } from "../Button/Button";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
-
+import { Academic } from "../icons/Academic-cap";
 interface SidebarProps {
   onFilterSelect: (filter: "all" | "twitter" | "youtube") => void;
 }
@@ -20,39 +19,35 @@ export function Sidebar({ onFilterSelect }: SidebarProps) {
   };
 
   const handleLogout = async () => {
-    try {
-      // Call the logout API endpoint
-      await axios.post(
-        `${BACKEND_URL}api/v1/logout`,
-        {},
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      );
-      
-      // Remove auth token
-      localStorage.removeItem("token");
-      
-      // Redirect to dashboard page instead of login
-      window.location.href = "/dashboard";
-    } catch (error) {
-      console.error("Logout failed:", error);
-      // Still remove token and redirect to dashboard on error
-      localStorage.removeItem("token");
-      window.location.href = "/dashboard";
-    }
-  };
+  try {
+    await axios.post(
+      `${BACKEND_URL}api/v1/logout`,
+      {},
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+
+    localStorage.removeItem("token");
+    window.location.href = "/"; // ✅ Redirect to home
+  } catch (error) {
+    console.error("Logout failed:", error);
+    localStorage.removeItem("token");
+    window.location.href = "/"; // ✅ Still redirect to home on error
+  }
+};
+
 
   return (
     <div className="h-screen bg-white border-r w-72 fixed left-0 top-0 flex flex-col shadow-sm">
       <div className="p-6 border-b">
         <div className="flex items-center gap-3">
           <div className="text-purple-600">
-            <BrainIcon />
+            <Academic></Academic>
           </div>
-          <div className="font-semibold text-xl">Second Brain</div>
+          <div className="font-semibold text-xl text-purple-600"> Second Brain</div>
         </div>
       </div>
 

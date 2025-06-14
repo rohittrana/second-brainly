@@ -8,7 +8,7 @@ export function Testimonials({ id }: { id?: string }) {
       name: "Sarah Johnson",
       role: "Marketing Director",
       company: "TechGrowth Inc.",
-      image: "/api/placeholder/64/64",
+      image: "",
       rating: 5,
       text: "Working with this team has transformed our online presence completely. The attention to detail and customer service is unmatched. Highly recommend!"
     },
@@ -17,7 +17,7 @@ export function Testimonials({ id }: { id?: string }) {
       name: "Michael Chen",
       role: "Small Business Owner",
       company: "Chen's Bistro",
-      image: "", // Missing image to trigger fallback
+      image: "",
       rating: 5,
       text: "Our website redesign exceeded all expectations. Sales have increased 30% since launch and customers love the new user-friendly interface."
     },
@@ -26,7 +26,7 @@ export function Testimonials({ id }: { id?: string }) {
       name: "Jessica Williams",
       role: "CEO",
       company: "Innovate Solutions",
-      image: "/api/placeholder/64/64",
+      image: "",
       rating: 4,
       text: "Professional, responsive, and incredibly talented. They managed to capture our brand essence perfectly and delivered ahead of schedule!"
     }
@@ -35,12 +35,12 @@ export function Testimonials({ id }: { id?: string }) {
   return (
     <section
       id={id}
-      className="py-16 px-4 bg-[url('/cartoon-bg.svg')] bg-cover bg-center bg-no-repeat"
+      className="py-16 px-4 bg-transparent bg-cover bg-center bg-no-repeat"
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white drop-shadow-lg">What Our Clients Say</h2>
-          <p className="text-gray-200 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-gray-900 drop-shadow-sm">What Our Clients Say</h2>
+          <p className="text-gray-700 max-w-2xl mx-auto">
             Don't just take our word for it. Here's what people are saying about working with us.
           </p>
         </div>
@@ -53,7 +53,7 @@ export function Testimonials({ id }: { id?: string }) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-white rounded-3xl shadow-xl p-6 flex flex-col h-full border-2 border-purple-200"
+              className="bg-white/60 backdrop-blur-lg rounded-3xl shadow-md p-6 flex flex-col h-full border-2 border-purple-200 transition-transform duration-300 hover:scale-105 hover:shadow-xl"
             >
               <div className="flex items-center mb-4">
                 {testimonial.image ? (
@@ -63,9 +63,11 @@ export function Testimonials({ id }: { id?: string }) {
                     className="w-12 h-12 rounded-full mr-4 object-cover border-2 border-purple-300"
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-full mr-4 bg-purple-300 text-white flex items-center justify-center text-lg font-semibold border-2 border-purple-300">
-                    {testimonial.name.charAt(0).toUpperCase()}
-                  </div>
+                  <img
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonial.name)}&background=8b5cf6&color=fff&size=64`}
+                    alt={`${testimonial.name} avatar`}
+                    className="w-12 h-12 rounded-full mr-4 object-cover border-2 border-purple-300"
+                  />
                 )}
                 <div>
                   <h3 className="font-semibold text-lg text-purple-800">{testimonial.name}</h3>

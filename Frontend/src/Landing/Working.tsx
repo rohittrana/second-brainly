@@ -42,7 +42,7 @@ export function Working({ id }: { id?: string }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-lg w-96 min-h-[22rem] p-6 transition-transform duration-300 hover:scale-105 border border-purple-100"
+            className="bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg w-96 min-h-[22rem] p-6 transition-transform duration-300 hover:scale-105 hover:shadow-xl border border-purple-100"
           >
             <h3 className="text-xl font-semibold mb-3 text-gray-800">{step.title}</h3>
             <div className="text-gray-700">

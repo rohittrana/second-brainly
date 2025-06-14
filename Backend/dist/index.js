@@ -17,8 +17,8 @@ const utils_1 = require("./utils");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
 const config_1 = require("./config");
-const cors_1 = __importDefault(require("cors"));
 const middleware_1 = require("./middleware");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -77,6 +77,7 @@ app.post("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter
     });
 }));
 app.get("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // @ts-ignore
     const userId = req.userId;
     const content = yield db_1.ContentModel.find({
         userId: userId
@@ -154,26 +155,5 @@ app.get("/api/v1/brain/:shareLink", (req, res) => __awaiter(void 0, void 0, void
         username: user.username,
         content: content
     });
-}));
-app.post("/api/v1/logout", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        // Get the token from the authorization header
-        const token = req.headers["authorization"];
-        // Add the token to blacklist with expiration time
-        yield db_1.TokenBlacklistModel.create({
-            token,
-            // Store expiration date
-            expiresAt: new Date(Date.now() + 86400000) // 24 hours from now
-        });
-        res.json({
-            message: "Logout successful"
-        });
-    }
-    catch (error) {
-        console.error("Logout error:", error);
-        res.status(500).json({
-            message: "Logout failed"
-        });
-    }
 }));
 app.listen(3000);
