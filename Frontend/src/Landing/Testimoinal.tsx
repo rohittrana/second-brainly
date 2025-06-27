@@ -35,11 +35,14 @@ export function Testimonials({ id }: { id?: string }) {
   return (
     <section
       id={id}
-      className="py-16 px-4 bg-transparent bg-cover bg-center bg-no-repeat"
+      className="py-16 px-4 bg-transparent bg-cover bg-center bg-no-repeat font-['Inter']"
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 drop-shadow-sm">What Our Clients Say</h2>
+          <h2 className="text-3xl font-medium text-gray-900 drop-shadow-sm font-['Playfair_Display']">
+            What Our Clients Say
+          </h2>
+
           <p className="text-gray-700 max-w-2xl mx-auto">
             Don't just take our word for it. Here's what people are saying about working with us.
           </p>
@@ -70,7 +73,9 @@ export function Testimonials({ id }: { id?: string }) {
                   />
                 )}
                 <div>
-                  <h3 className="font-semibold text-lg text-purple-800">{testimonial.name}</h3>
+                  <h3 className="font-semibold text-lg text-purple-800 font-['Poppins']">
+                    {testimonial.name}
+                  </h3>
                   <p className="text-sm text-gray-600">{testimonial.role}, {testimonial.company}</p>
                 </div>
               </div>

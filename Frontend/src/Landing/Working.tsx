@@ -10,7 +10,7 @@ export function Working({ id }: { id?: string }) {
     {
       title: "🎯 Benefits",
       description: (
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
+        <ul className="list-disc list-inside text-gray-700 font-['Inter'] space-y-1">
           <li>Keep all your valuable links in one place</li>
           <li>Add custom titles to quickly identify them</li>
           <li>Filter by YouTube or Twitter</li>
@@ -26,10 +26,12 @@ export function Working({ id }: { id?: string }) {
   ];
 
   return (
-    <section id={id} className="py-16 px-4 bg-white">
+    <section id={id} className="py-16 px-4 bg-white font-['Inter']">
       <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-800 drop-shadow-sm">How It Works</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <h2 className="text-3xl font-medium text-gray-900 drop-shadow-sm">
+          How It Works
+        </h2>
+        <p className="text-gray-700 max-w-2xl mx-auto">
           Discover how easy it is to save, organize, and share your favorite content in just a few steps.
         </p>
       </div>
@@ -44,9 +46,15 @@ export function Working({ id }: { id?: string }) {
             viewport={{ once: true }}
             className="bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg w-96 min-h-[22rem] p-6 transition-transform duration-300 hover:scale-105 hover:shadow-xl border border-purple-100"
           >
-            <h3 className="text-xl font-semibold mb-3 text-gray-800">{step.title}</h3>
-            <div className="text-gray-700">
-              {typeof step.description === "string" ? <p>{step.description}</p> : step.description}
+            <h3 className="text-xl font-semibold mb-3 text-blue-900 font-['Inter']">
+              {step.title}
+            </h3>
+            <div className="text-gray-700 font-['Inter']">
+              {typeof step.description === "string" ? (
+                <p>{step.description}</p>
+              ) : (
+                step.description
+              )}
             </div>
           </motion.div>
         ))}
