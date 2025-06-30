@@ -11,14 +11,14 @@ import axios from "axios";
 
 export function DashBoard() {
   const [modelOpen, setModelOpen] = useState(false);
-  const { contents, refresh } = UseContent();
+  const { contents, refresh,handleDelete} = UseContent();
   const [filter, setFilter] = useState("all");
-  
+
   const filteredContent = contents.filter((item) => {
     if (filter === "all") return true;
     return item.type === filter;
   });
-  
+
   useEffect(() => {
     refresh();
   }, [modelOpen]);
@@ -70,8 +70,15 @@ export function DashBoard() {
         </div>
 
         <div className="flex gap-2 flex-wrap">
-          {filteredContent.map((item) => (
-            <Card key={item._id} type={item.type} link={item.link} title={item.title} />
+          {filteredContent.map((item) => (<Card
+            key={item._id}
+            id={item._id}
+            title={item.title}
+            link={item.link}
+            type={item.type}
+            onDelete={handleDelete}
+          />
+
           ))}
         </div>
       </div>

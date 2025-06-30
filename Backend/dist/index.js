@@ -89,7 +89,7 @@ app.get("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(
 app.delete("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const contentId = req.body.contentId;
     yield db_1.ContentModel.deleteMany({
-        contentId,
+        _id: contentId,
         userId: req.userId
     });
     res.json({

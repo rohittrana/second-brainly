@@ -19,12 +19,12 @@ app.post("/api/v1/signup", async (req, res) => {
         await UserModel.create({
             username: username,
             password: password
-        }) 
+        })
 
         res.json({
             message: "User signed up"
         })
-    } catch(e) {
+    } catch (e) {
         res.status(411).json({
             message: "User already exists"
         })
@@ -68,7 +68,7 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
     res.json({
         message: "Content added"
     })
-    
+
 })
 
 app.get("/api/v1/content", userMiddleware, async (req, res) => {
@@ -86,8 +86,9 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     const contentId = req.body.contentId;
 
     await ContentModel.deleteMany({
-        contentId,
+        _id: contentId,
         userId: req.userId
+
     })
 
     res.json({
@@ -98,25 +99,25 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
     const share = req.body.share;
     if (share) {
-            const existingLink = await LinkModel.findOne({
-                userId: req.userId
-            });
+        const existingLink = await LinkModel.findOne({
+            userId: req.userId
+        });
 
-            if (existingLink) {
-                res.json({
-                    hash: existingLink.hash
-                })
-                return;
-            }
-            const hash = random(10);
-            await LinkModel.create({
-                userId: req.userId,
-                hash: hash
-            })
-
+        if (existingLink) {
             res.json({
-                hash
+                hash: existingLink.hash
             })
+            return;
+        }
+        const hash = random(10);
+        await LinkModel.create({
+            userId: req.userId,
+            hash: hash
+        })
+
+        res.json({
+            hash
+        })
     } else {
         await LinkModel.deleteOne({
             userId: req.userId

@@ -19,25 +19,25 @@ export function Sidebar({ onFilterSelect }: SidebarProps) {
   };
 
   const handleLogout = async () => {
-  try {
-    await axios.post(
-      `${BACKEND_URL}api/v1/logout`,
-      {},
-      {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }
-    );
+    try {
+      await axios.post(
+        `${BACKEND_URL}api/v1/logout`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
-    localStorage.removeItem("token");
-    window.location.href = "/"; // ✅ Redirect to home
-  } catch (error) {
-    console.error("Logout failed:", error);
-    localStorage.removeItem("token");
-    window.location.href = "/"; // ✅ Still redirect to home on error
-  }
-};
+      localStorage.removeItem("token");
+      window.location.href = "/"; // ✅ Redirect to home
+    } catch (error) {
+      console.error("Logout failed:", error);
+      localStorage.removeItem("token");
+      window.location.href = "/"; // ✅ Still redirect to home on error
+    }
+  };
 
 
   return (
@@ -80,8 +80,9 @@ export function Sidebar({ onFilterSelect }: SidebarProps) {
           size="md"
           text="Logout"
           onClick={handleLogout}
-          className="w-full"
+          className="w-full bg-gray-200 hover:bg-red-500 hover:text-white transition-all duration-300"
         />
+       
       </div>
     </div>
   );

@@ -5,12 +5,26 @@ interface ContentType {
    type: "twitter" | "youtube";  
    title: string;
    link: string;
-   _id?: string;
+   _id: string;
 
  }
  
  export function UseContent() {
-   const [contents, setContents] = useState<ContentType[]>([]); // 👈 tell TypeScript what’s inside
+  const handleDelete = async(id:string)=>{
+    try{await 
+      await axios.delete(`${BACKEND_URL}api/v1/content`,{
+        data:{contentId:id}
+,
+headers:{
+  Authorization:localStorage.getItem("token"),
+}      })
+refresh();
+    }
+    catch(error){
+      console.log("Error deleting content :" , error);
+    }
+  }
+   const [contents, setContents] = useState<ContentType[]>([]); 
    function refresh() {
      axios
        .get(`${BACKEND_URL}api/v1/content`, {
@@ -33,6 +47,7 @@ interface ContentType {
      };
    }, []);
    
-   return { contents, refresh };
+   return { contents, refresh, handleDelete };
+
  }
  

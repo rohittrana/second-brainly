@@ -24,7 +24,7 @@ export function Signin(){
                           const jwt = response.data.token;
                           localStorage.setItem("token",jwt);
                           navigate("/dashboard");
-                        //redirect to user to dashboard 
+                        
                }
                return(
                               <>
