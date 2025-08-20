@@ -1,1 +1,1 @@
-export const  BACKEND_URL = "https://second-brainly.onrender.com/"
+
