@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_URL } from "../config";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Card } from "../Components/Card/Card";
 
 interface ContentItem {
@@ -9,7 +9,6 @@ interface ContentItem {
   link: string;
   type: "youtube" | "twitter";
   title: string;
-  
 }
 
 export function ShareLink() {
@@ -25,8 +24,14 @@ export function ShareLink() {
         const res = await axios.get(`${BACKEND_URL}api/v1/brain/${shareLink}`);
         setUsername(res.data.username);
         setContent(res.data.content);
-      } catch (e: any) {
-        setError(e.message || "Something went wrong");
+      } catch (error: unknown) {
+        if (error instanceof AxiosError) {
+          setError(error.message || "Something went wrong");
+        } else if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An unexpected error occurred");
+        }
       } finally {
         setLoading(false);
       }

@@ -10,10 +10,20 @@ interface CardProps {
   link: string;
   type: "youtube" | "twitter";
   onShare?: () => void;
-  onDelete?: (id: string) => void; // Modify this line for the delete post i dont forget so that why i write commit
+  onDelete?: (id: string) => void; 
 }
 
-// Helper function to get YouTube video ID from various YouTube URL formats
+interface TwitterWidgets {
+  load: () => void;
+}
+
+interface WindowWithTwitter extends Window {
+  twttr?: {
+    widgets?: TwitterWidgets;
+  };
+}
+
+
 const getYouTubeVideoId = (url: string): string | null => {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   const match = url.match(regExp);
@@ -28,24 +38,26 @@ export const Card = ({ id, title, link, type, onDelete }: CardProps) => {
   };
 
   useEffect(() => {
-    // Load Twitter widgets script for Twitter embeds
+ 
     if (type === "twitter") {
-      // Check if Twitter widgets script is already loaded
-      if (!(window as any).twttr) {
+      const windowWithTwitter = window as WindowWithTwitter;
+      
+    
+      if (!windowWithTwitter.twttr) {
         const script = document.createElement('script');
         script.src = 'https://platform.twitter.com/widgets.js';
         script.async = true;
         script.onload = () => {
-          // Refresh Twitter widgets after script loads
-          if ((window as any).twttr && (window as any).twttr.widgets) {
-            (window as any).twttr.widgets.load();
+     
+          if (windowWithTwitter.twttr?.widgets) {
+            windowWithTwitter.twttr.widgets.load();
           }
         };
         document.head.appendChild(script);
       } else {
-        // If script is already loaded, just refresh widgets
-        if ((window as any).twttr.widgets) {
-          (window as any).twttr.widgets.load();
+      
+        if (windowWithTwitter.twttr.widgets) {
+          windowWithTwitter.twttr.widgets.load();
         }
       }
     }
@@ -68,7 +80,7 @@ export const Card = ({ id, title, link, type, onDelete }: CardProps) => {
             rel="noopener noreferrer"
             className="text-blue-500 hover:text-blue-700 transition-colors"
           >
-            {/* You can add an external link icon here if needed */}
+         
           </a>
           <DeleteIcon onclick={handleDelete} />
         </div>

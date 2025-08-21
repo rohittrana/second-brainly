@@ -31,11 +31,11 @@ export function Sidebar({ onFilterSelect }: SidebarProps) {
       );
 
       localStorage.removeItem("token");
-      window.location.href = "/"; // ✅ Redirect to home
+      window.location.href = "/"; 
     } catch (error) {
       console.error("Logout failed:", error);
       localStorage.removeItem("token");
-      window.location.href = "/"; // ✅ Still redirect to home on error
+      window.location.href = "/"; 
     }
   };
 

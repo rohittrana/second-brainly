@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc --project tsconfig.json",
     "start": "node dist/index.js",
-    "dev": "npm run build && npm run start"
+    "dev": "npm run build && npm run start",
+    "dev:watch": "nodemon --exec \"npm run build && npm run start\"",
+    "lint": "eslint .",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +16,16 @@
   "type": "commonjs",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.33.0",
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.40.0"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
