@@ -1,17 +1,15 @@
-import { RefObject } from "react";
+import React, { forwardRef } from "react";
 
-interface InputProps {
-  ref?: RefObject<HTMLInputElement>;
-  placeholder: string;
-}
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Input({ ref, placeholder }: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <input
-      type="text"
-      placeholder={placeholder}
-      className="px-4 py-2 rounded border m-2"
       ref={ref}
+      className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
+      {...props}
     />
   );
-}
+});
+
+Input.displayName = "Input";
